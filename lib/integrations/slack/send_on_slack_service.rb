@@ -112,7 +112,7 @@ class Integrations::Slack::SendOnSlackService < Base::SendOnChannelService
   def post_message
     @slack_message = slack_client.chat_postMessage(
       channel: hook.reference_id,
-      text: message_content,
+      text: message_content + "\n\nPage Url: #{message.sender.custom_attributes['page_url']}",
       username: sender_name(message.sender),
       thread_ts: conversation.identifier,
       icon_url: avatar_url(message.sender),
